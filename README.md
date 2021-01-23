@@ -19,7 +19,7 @@ go get github.com/lawzava/go-tld
 ```go
 package main
 
-import tld "github.com/lawzava/go-tld"
+import "github.com/lawzava/go-tld"
 
 func main() {
 	tld.IsValid("com") // true
