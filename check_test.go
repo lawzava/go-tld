@@ -1,13 +1,16 @@
 package tld
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestIsValid(t *testing.T) {
-	testCases := []struct{
-		input string
+	t.Parallel()
+
+	testCases := []struct {
+		input          string
 		expectedOutput bool
 	}{
 		{"com", true},
