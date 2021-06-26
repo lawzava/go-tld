@@ -1,7 +1,9 @@
-package tld
+package tld_test
 
 import (
 	"testing"
+
+	"github.com/lawzava/go-tld"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -23,7 +25,7 @@ func TestIsValid(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		res := IsValid(testCase.input)
+		res := tld.IsValid(testCase.input)
 
 		assert.Equal(t, testCase.expectedOutput, res, testCase.input)
 	}
