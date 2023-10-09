@@ -1,5 +1,6 @@
 package tld
 
+//nolint:funlen,maintidx // this is a list of TLDs, it's going to be long
 func availableTLDs() []string {
 	return []string{
 		"aaa",
