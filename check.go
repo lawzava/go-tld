@@ -1,12 +1,9 @@
+//go:generate go run internal/gen/main.go
+
 package tld
 
-// IsValid checks whether the supplied request is valid tld.
+// IsValid checks whether the supplied TLD is valid.
 func IsValid(tld string) bool {
-	for _, validTLD := range availableTLDs() {
-		if validTLD == tld {
-			return true
-		}
-	}
-
-	return false
+	_, ok := validTLDs[tld]
+	return ok
 }

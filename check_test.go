@@ -4,8 +4,6 @@ import (
 	"testing"
 
 	"github.com/lawzava/go-tld"
-
-	"github.com/stretchr/testify/assert"
 )
 
 func TestIsValid(t *testing.T) {
@@ -24,9 +22,50 @@ func TestIsValid(t *testing.T) {
 		{"015", false},
 	}
 
-	for _, testCase := range testCases {
-		res := tld.IsValid(testCase.input)
+	for _, tc := range testCases {
+		t.Run(tc.input, func(t *testing.T) {
+			res := tld.IsValid(tc.input)
 
-		assert.Equal(t, testCase.expectedOutput, res, testCase.input)
+			if res != tc.expectedOutput {
+				t.Errorf("IsValid(%q) = %v, want %v", tc.input, res, tc.expectedOutput)
+			}
+		})
 	}
+}
+
+// BenchmarkIsValid_FirstElement benchmarks lookup of the first TLD (best case for linear search).
+func BenchmarkIsValid_FirstElement(b *testing.B) {
+	for b.Loop() {
+		tld.IsValid("aaa")
+	}
+}
+
+// BenchmarkIsValid_MiddleElement benchmarks lookup of a TLD in the middle of the list.
+func BenchmarkIsValid_MiddleElement(b *testing.B) {
+	for b.Loop() {
+		tld.IsValid("com")
+	}
+}
+
+// BenchmarkIsValid_LastElement benchmarks lookup of the last TLD (worst case for linear search).
+func BenchmarkIsValid_LastElement(b *testing.B) {
+	for b.Loop() {
+		tld.IsValid("zw")
+	}
+}
+
+// BenchmarkIsValid_NotFound benchmarks lookup of a non-existent TLD (worst case).
+func BenchmarkIsValid_NotFound(b *testing.B) {
+	for b.Loop() {
+		tld.IsValid("notarealtld")
+	}
+}
+
+// BenchmarkIsValid_Parallel benchmarks concurrent lookups.
+func BenchmarkIsValid_Parallel(b *testing.B) {
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			tld.IsValid("com")
+		}
+	})
 }
