@@ -1,23 +1,48 @@
-linters-settings:
-  gocritic:
-    enabled-tags:
-      - diagnostic
-      - experimental
-      - opinionated
-      - performance
-      - style
-  govet:
-    check-shadowing: true
-  misspell:
-    locale: US
-  nakedret:
-    max-func-lines: 2
-  gofumpt:
-    extra-rules: true
-
+version: "2"
 linters:
-  enable-all: true
+  default: all
   disable:
-    - gosmopolitan
     - depguard
-    - gci
+    - gosmopolitan
+    - wsl
+  settings:
+    wsl_v5:
+      allow-first-in-block: true
+      allow-whole-block: false
+      branch-max-lines: 2 
+    gocritic:
+      enabled-tags:
+        - diagnostic
+        - experimental
+        - opinionated
+        - performance
+        - style
+    misspell:
+      locale: US
+    nakedret:
+      max-func-lines: 2
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
+  enable:
+    - gofmt
+    - gofumpt
+    - goimports
+  settings:
+    gofumpt:
+      extra-rules: true
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
