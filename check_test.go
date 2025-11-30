@@ -22,8 +22,10 @@ func TestIsValid(t *testing.T) {
 		{"015", false},
 	}
 
-	for _, tc := range testCases {
+	for _, tc := range testCases { //nolint:varnamelen // test case name
 		t.Run(tc.input, func(t *testing.T) {
+			t.Parallel()
+
 			res := tld.IsValid(tc.input)
 
 			if res != tc.expectedOutput {
