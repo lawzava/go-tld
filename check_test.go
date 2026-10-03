@@ -17,6 +17,7 @@ func TestIsValid(t *testing.T) {
 		{"org", true},
 		{"xyz", true},
 		{"dev", true},
+		{"web", true},
 		{"xir", false},
 		{"netlink", false},
 		{"015", false},
